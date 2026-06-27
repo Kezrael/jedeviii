@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== EDITAR: título que aparece en la pestaña del navegador y en Google ===== -->
+<title>JEDE VIII · Congreso de Jóvenes Investigadores en Diseño de Experimentos y Bioestadística · 6–9 julio 2027</title>
+<meta name="description" content="VIII Congreso de Jóvenes Investigadores en Diseño de Experimentos y Bioestadística (JEDE VIII). Cuatro días de ponencias, envío de trabajos, premios y becas para jóvenes investigadores.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="JEDE VIII · Congreso de Jóvenes Investigadores en Diseño de Experimentos y Bioestadística">
+<meta property="og:description" content="Cuatro días de ciencia: ponencias, premios, becas y conferencias plenarias. 6–9 julio 2027.">
+<meta property="og:image" content="img/JEDE-VIII_og-1200x630.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kezrael.github.io/jedeviii/">
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="img/JEDE-VIII_favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="img/JEDE-VIII_favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/JEDE-VIII_favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/JEDE-VIII_favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS DE DISEÑO  ·  paleta JEDE VIII
+   Monte #13261F · Sela #1C4D3A · Prau #2E6E4E
+   Cantábrico #4C9A8E · Caliza #CDBA8E · Borrina #F3F0E8
+   ============================================================ */
+:root{
+  --ink:         #13261F;   /* Monte · tinta base */
+  --ink-soft:    #2E6E4E;   /* Prau · texto secundario */
+  --paper:       #F3F0E8;   /* Borrina · fondo papel */
+  --paper-2:     #e4dfcf;   /* Borrina oscura · fondo alternativo */
+  --deep:        #1C4D3A;   /* Sela · fondos oscuros */
+  --primary:     #2E6E4E;   /* Prau · color de acción principal */
+  --accent:      #4C9A8E;   /* Cantábrico · acento VIII */
+  --accent-dk:   #13261F;   /* Monte · hover oscuro */
+  --warm:        #CDBA8E;   /* Caliza · acento cálido */
+  --line:        #c8c2b0;   /* bordes y líneas sobre fondo claro */
+  --on-deep:     #bdd4ce;   /* texto suave sobre fondos oscuros */
+  --border-deep: #2a5c44;   /* borde sutil sobre fondo Sela */
+  --white:       #ffffff;
+
+  --display: "Spectral", Georgia, serif;
+  --body:    "Inter", system-ui, -apple-system, sans-serif;
+
+  --maxw:   1100px;
+  --radius: 4px;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+body{
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{ font-family: var(--display); font-weight: 600; line-height: 1.15; }
+
+a{ color: var(--primary); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+
+img{ max-width: 100%; display: block; }
+
+.wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+a:focus-visible, button:focus-visible{
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.eyebrow{
+  font-family: var(--body);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+/* Botones */
+.btn{
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  color: var(--white);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .1s;
+}
+.btn:hover{ background: var(--accent-dk); border-color: var(--accent-dk); text-decoration: none; transform: translateY(-1px); }
+.btn--ghost{ background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn--ghost:hover{ background: var(--ink); color: var(--white); }
+.btn--light{ background: var(--white); color: var(--ink); border-color: var(--white); }
+.btn--light:hover{ background: var(--paper-2); border-color: var(--paper-2); }
+.btn[disabled], .btn[aria-disabled="true"]{
+  opacity: .45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+section{ padding: 88px 0; }
+.section-head{ max-width: 720px; margin-bottom: 48px; }
+.section-head h2{ font-size: clamp(1.9rem, 4vw, 2.8rem); }
+.section-head p{ margin-top: 16px; color: var(--ink-soft); font-size: 1.08rem; }
+
+/* ============================================================
+   CABECERA / NAVEGACIÓN
+   ============================================================ */
+header{
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(243,240,232,.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav{ display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.brand{ display: flex; align-items: center; }
+.brand img{ height: 36px; width: auto; }
+.brand:hover{ text-decoration: none; }
+.nav-links{ display: flex; gap: 22px; align-items: center; list-style: none; }
+.nav-links a{ color: var(--ink-soft); font-size: .95rem; font-weight: 500; }
+.nav-links a:hover{ color: var(--primary); text-decoration: none; }
+.nav-cta{ padding: 9px 18px; }
+
+.nav-toggle{ display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
+.nav-toggle span{ display: block; width: 24px; height: 2px; background: var(--ink); margin: 5px 0; transition: .2s; }
+
+@media (max-width: 920px){
+  .nav-toggle{ display: block; }
+  .nav-links{
+    position: absolute; top: 68px; left: 0; right: 0;
+    flex-direction: column; gap: 0; align-items: stretch;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    max-height: 0; overflow: hidden; transition: max-height .25s ease;
+  }
+  .nav-links.open{ max-height: 520px; }
+  .nav-links li{ border-top: 1px solid var(--line); }
+  .nav-links a{ display: block; padding: 16px 24px; }
+  .nav-links .nav-cta{ margin: 14px 24px; text-align: center; }
+}
+
+/* ============================================================
+   HERO (portada)
+   ============================================================ */
+.hero{
+  background: var(--deep) url('img/JEDE-VIII_banner-1600x600.svg') center / cover no-repeat;
+  color: var(--paper);
+  padding: 96px 0 104px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(
+    105deg,
+    rgba(19,38,31,.92) 40%,
+    rgba(28,77,58,.60) 100%
+  );
+  pointer-events: none;
+}
+.hero .wrap{ position: relative; z-index: 1; }
+.hero-logo{ height: 60px; width: auto; margin-bottom: 36px; }
+@media (max-width: 620px){ .hero-logo{ height: 44px; margin-bottom: 28px; } }
+.hero .eyebrow{ color: var(--warm); }
+.hero h1{
+  font-size: clamp(2.1rem, 5vw, 3.8rem);
+  font-weight: 700;
+  margin-bottom: 22px;
+  max-width: 20ch;
+}
+.hero .lede{ font-size: 1.2rem; color: var(--on-deep); max-width: 56ch; margin-bottom: 14px; }
+.hero-meta{
+  display: flex; flex-wrap: wrap; gap: 28px;
+  margin: 30px 0 38px;
+  font-size: 1.05rem;
+}
+.hero-meta div{ display: flex; flex-direction: column; }
+.hero-meta .label{ font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--warm); margin-bottom: 4px; }
+.hero-meta .value{ font-weight: 600; }
+.hero-actions{ display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ============================================================
+   SOBRE EL CONGRESO
+   ============================================================ */
+.about{ background: var(--paper); }
+.about-grid{ display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
+.about-grid p{ margin-bottom: 18px; color: var(--ink-soft); font-size: 1.08rem; }
+.facts{ background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+.facts h3{ font-size: 1.2rem; margin-bottom: 18px; }
+.facts dl{ display: grid; gap: 14px; }
+.facts dt{ font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+.facts dd{ font-weight: 500; margin-bottom: 6px; }
+@media (max-width: 760px){ .about-grid{ grid-template-columns: 1fr; gap: 36px; } }
+
+/* ============================================================
+   PROGRAMA (con pestañas por día)
+   ============================================================ */
+.program{ background: var(--deep); color: var(--paper); }
+.program .section-head h2{ color: var(--paper); }
+.program .section-head p{ color: var(--on-deep); }
+
+.program-soon{
+  display: flex; flex-direction: column; align-items: center;
+  gap: 16px; text-align: center;
+  border: 1px solid var(--border-deep);
+  border-radius: var(--radius);
+  padding: 44px 24px;
+  margin-bottom: 36px;
+}
+.badge-soon{
+  display: inline-block;
+  background: var(--warm);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 100px;
+}
+.program-soon p{ color: var(--on-deep); font-size: 1.05rem; max-width: 52ch; margin: 0; }
+
+.day-tabs{ display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+.day-tab{
+  font-family: var(--body); font-weight: 600; font-size: .95rem;
+  background: transparent; color: var(--on-deep);
+  border: 1px solid var(--border-deep); border-radius: var(--radius);
+  padding: 12px 20px; cursor: pointer; transition: .15s;
+  text-align: left; line-height: 1.3;
+}
+.day-tab .d-num{ display:block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--warm); }
+.day-tab[aria-selected="true"]{ background: var(--warm); color: var(--ink); border-color: var(--warm); }
+.day-tab[aria-selected="true"] .d-num{ color: rgba(19,38,31,.6); }
+
+.day-panel{ display: none; }
+.day-panel.active{ display: block; }
+.soon-note{
+  padding: 28px 0;
+  border-top: 1px solid var(--border-deep);
+  border-bottom: 1px solid var(--border-deep);
+  color: var(--on-deep);
+  font-style: italic;
+}
+
+.slot{
+  display: grid; grid-template-columns: 130px 1fr; gap: 24px;
+  padding: 20px 0; border-top: 1px solid var(--border-deep);
+}
+.slot:last-child{ border-bottom: 1px solid var(--border-deep); }
+.slot .time{ font-weight: 600; color: var(--warm); }
+.slot h4{ font-family: var(--body); font-weight: 600; font-size: 1.08rem; margin-bottom: 4px; }
+.slot .who{ color: var(--on-deep); font-size: .95rem; }
+@media (max-width: 620px){ .slot{ grid-template-columns: 1fr; gap: 4px; } }
+
+/* ============================================================
+   PONENTES / PLENARIAS
+   ============================================================ */
+.speakers{ background: var(--paper); }
+.speaker-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.speaker{ background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.speaker .photo{
+  aspect-ratio: 1/1; background: var(--paper-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); font-size: .85rem;
+}
+.speaker .photo img{ width: 100%; height: 100%; object-fit: cover; }
+.speaker .body{ padding: 20px; }
+.speaker h3{ font-size: 1.2rem; }
+.speaker .role{ color: var(--primary); font-weight: 600; font-size: .9rem; margin: 4px 0 10px; }
+.speaker .bio{ color: var(--ink-soft); font-size: .95rem; }
+@media (max-width: 820px){ .speaker-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px){ .speaker-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   ENVÍO DE TRABAJOS (call for papers)
+   ============================================================ */
+.cfp{ background: var(--paper-2); }
+.cfp-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.deadlines{ list-style: none; }
+.deadlines li{ display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.deadlines .date{ font-weight: 600; color: var(--primary); white-space: nowrap; }
+.cfp p{ color: var(--ink-soft); margin-bottom: 16px; font-size: 1.05rem; }
+@media (max-width: 760px){ .cfp-grid{ grid-template-columns: 1fr; gap: 36px; } }
+
+/* ============================================================
+   PREMIOS
+   ============================================================ */
+.awards{ background: var(--paper); }
+.award-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.award{ border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; background: var(--white); }
+.award .medal{ font-family: var(--display); font-weight: 700; font-size: 2rem; color: var(--warm); margin-bottom: 10px; }
+.award h3{ font-size: 1.3rem; margin-bottom: 10px; }
+.award p{ color: var(--ink-soft); font-size: 1rem; }
+@media (max-width: 680px){ .award-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   BECAS
+   ============================================================ */
+.grants{ background: var(--deep); color: var(--paper); }
+.grants .section-head h2{ color: var(--paper); }
+.grants .section-head p{ color: var(--on-deep); }
+.grants-grid{ display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+.grants-grid p{ color: var(--on-deep); margin-bottom: 16px; font-size: 1.05rem; }
+.grant-box{ background: var(--ink); border: 1px solid var(--border-deep); border-radius: var(--radius); padding: 28px; }
+.grant-box h3{ font-family: var(--body); font-weight: 700; color: var(--paper); margin-bottom: 14px; }
+.grant-box ul{ list-style: none; }
+.grant-box li{ padding: 10px 0; border-bottom: 1px solid var(--border-deep); color: var(--on-deep); }
+.grant-box li:last-child{ border-bottom: 0; }
+@media (max-width: 760px){ .grants-grid{ grid-template-columns: 1fr; gap: 32px; } }
+
+/* ============================================================
+   INSCRIPCIÓN (precios)
+   ============================================================ */
+.register{ background: var(--paper); }
+.price-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.price{ border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; background: var(--white); display: flex; flex-direction: column; }
+.price.feat{ border-color: var(--accent); border-width: 2px; }
+.price .tag{ font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); font-weight: 600; }
+.price .amount{ font-family: var(--display); font-size: 2.4rem; font-weight: 700; margin: 10px 0; }
+.price .amount small{ font-size: 1rem; color: var(--ink-soft); font-weight: 400; }
+.price ul{ list-style: none; margin: 16px 0 24px; }
+.price li{ padding: 7px 0; color: var(--ink-soft); border-bottom: 1px solid var(--paper-2); font-size: .95rem; }
+.price .btn{ margin-top: auto; text-align: center; }
+.reg-note{ text-align: center; margin-top: 26px; color: var(--ink-soft); font-size: .95rem; }
+@media (max-width: 820px){ .price-grid{ grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+
+/* ============================================================
+   COMITÉS
+   ============================================================ */
+.committee{ background: var(--paper-2); }
+.comm-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.comm-grid h3{ font-size: 1.3rem; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: inline-block; }
+.comm-grid ul{ list-style: none; }
+.comm-grid li{ padding: 8px 0; color: var(--ink-soft); }
+.comm-grid li strong{ color: var(--ink); font-weight: 600; }
+@media (max-width: 680px){ .comm-grid{ grid-template-columns: 1fr; gap: 32px; } }
+
+/* ============================================================
+   LOCALIZACIÓN Y ALOJAMIENTO
+   ============================================================ */
+.venue{ background: var(--paper); }
+.venue-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
+.venue-info p{ color: var(--ink-soft); margin-bottom: 14px; }
+.venue-info .addr{ font-weight: 600; color: var(--ink); }
+.map-embed{ min-height: 340px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.map-embed iframe{ width: 100%; height: 100%; border: 0; min-height: 340px; }
+@media (max-width: 760px){ .venue-grid{ grid-template-columns: 1fr; gap: 28px; } }
+
+/* ============================================================
+   CONTACTO / PIE
+   ============================================================ */
+.contact{ background: var(--deep); color: var(--paper); text-align: center; }
+.contact h2{ color: var(--paper); font-size: clamp(1.9rem,4vw,2.8rem); }
+.contact p{ color: var(--on-deep); max-width: 48ch; margin: 16px auto 28px; font-size: 1.08rem; }
+.contact a.mail{ color: var(--warm); font-weight: 600; font-size: 1.2rem; }
+
+footer{ background: var(--ink); color: #7a9e98; border-top: 1px solid var(--border-deep); padding: 30px 0; }
+.foot{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: .9rem; }
+.foot-logo{ height: 26px; width: auto; opacity: .7; }
+.foot a{ color: var(--on-deep); }
+</style>
+</head>
+
+<body>
+
+<!-- =====================  NAVEGACIÓN  ===================== -->
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="brand" aria-label="JEDE VIII — Inicio">
+      <img src="img/JEDE-VIII_logo-horizontal.svg" alt="JEDE VIII">
+    </a>
+
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li><a href="#sobre">El congreso</a></li>
+      <li><a href="#programa">Programa</a></li>
+      <li><a href="#plenarias">Plenarias</a></li>
+      <li><a href="#trabajos">Trabajos</a></li>
+      <li><a href="#becas">Becas</a></li>
+      <li><a href="#inscripcion">Inscripción</a></li>
+      <li><a href="#inscripcion" class="btn nav-cta">Inscríbete</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- =====================  HERO  ===================== -->
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <img src="img/JEDE-VIII_logo-horizontal_negativo.svg"
+         alt="JEDE VIII"
+         class="hero-logo">
+    <p class="eyebrow">VIII edición · serie iniciada en Toledo 2010</p>
+    <h1>Congreso de Jóvenes Investigadores en Diseño de Experimentos y Bioestadística</h1>
+    <p class="lede">Un encuentro para que jóvenes investigadoras e investigadores presenten sus trabajos en diseño de experimentos y bioestadística, en un ambiente cercano que favorece el aprendizaje y la colaboración.</p>
+
+    <div class="hero-meta">
+      <div>
+        <span class="label">Fechas</span>
+        <!-- EDITAR: fechas provisionales -->
+        <span class="value">6–9 julio 2027</span>
+      </div>
+      <div>
+        <span class="label">Sede</span>
+        <!-- EDITAR: añade la sede cuando se confirme -->
+        <span class="value">Por confirmar</span>
+      </div>
+      <div>
+        <span class="label">Modalidad</span>
+        <span class="value">Presencial</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#inscripcion" class="btn">Inscríbete</a>
+      <a href="#trabajos" class="btn btn--light">Enviar un trabajo</a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  SOBRE EL CONGRESO  ===================== -->
+<section class="about" id="sobre">
+  <div class="wrap about-grid">
+    <div>
+      <p class="eyebrow">El congreso</p>
+      <h2 style="font-size:clamp(1.9rem,4vw,2.8rem); margin-bottom:24px;">Jóvenes investigadores, ciencia de primer nivel</h2>
+      <!-- EDITAR: descripción del congreso -->
+      <p>JEDE reúne cada pocos años a jóvenes investigadoras e investigadores para compartir sus trabajos en diseño de experimentos y bioestadística. El objetivo es fomentar el intercambio de conocimientos y experiencias en un ambiente relajado y receptivo, donde presentar la propia investigación y conocer la de otros grupos puede dar lugar a futuras colaboraciones.</p>
+      <p>El congreso se enmarca en las actividades de los grupos de trabajo de «Diseño de Experimentos» y «Bioestadística» de la Sociedad de Estadística e Investigación Operativa (SEIO), en colaboración con la Red Nacional de Bioestadística (BIOSTATNET). Esta es la octava edición de una serie que comenzó en Toledo en 2010.</p>
+      <p>Además de las comunicaciones, el programa incluye conferencias plenarias a cargo de personas expertas de reconocido prestigio, y se conceden premios a las mejores ponencias presentadas por jóvenes investigadores.</p>
+    </div>
+    <aside class="facts">
+      <h3>De un vistazo</h3>
+      <dl>
+        <!-- EDITAR -->
+        <div><dt>Edición</dt><dd>VIII (serie iniciada en 2010)</dd></div>
+        <div><dt>Destinatarios</dt><dd>Jóvenes investigadores: menores de 35 años, predoctorales o doctores con un máximo de 2 años de experiencia</dd></div>
+        <div><dt>Áreas</dt><dd>Diseño de experimentos y bioestadística</dd></div>
+        <div><dt>Reconocimientos</dt><dd>Premios a las mejores ponencias</dd></div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<!-- =====================  PROGRAMA  ===================== -->
+<section class="program" id="programa">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Programa</p>
+      <h2>Cuatro días de ciencia</h2>
+      <p>El programa detallado se publicará en cuanto se confirmen las plenarias y se cierre el período de envío de trabajos.</p>
+    </div>
+
+    <!-- Aviso próximamente + botón descarga (desactivado) -->
+    <div class="program-soon">
+      <span class="badge-soon">Próximamente</span>
+      <p>Estamos preparando el programa del congreso. En cuanto esté disponible podrás consultarlo aquí y descargarlo en PDF.</p>
+      <a href="#" class="btn btn--light" aria-disabled="true" disabled>
+        ↓ Descargar programa completo
+      </a>
+    </div>
+
+    <!-- Pestañas de los días (estructura orientativa) -->
+    <div class="day-tabs" role="tablist" aria-label="Días del congreso">
+      <button class="day-tab" role="tab" aria-selected="true"  aria-controls="dia1" id="tab1"><span class="d-num">Día 1</span>Martes 6</button>
+      <button class="day-tab" role="tab" aria-selected="false" aria-controls="dia2" id="tab2"><span class="d-num">Día 2</span>Miércoles 7</button>
+      <button class="day-tab" role="tab" aria-selected="false" aria-controls="dia3" id="tab3"><span class="d-num">Día 3</span>Jueves 8</button>
+      <button class="day-tab" role="tab" aria-selected="false" aria-controls="dia4" id="tab4"><span class="d-num">Día 4</span>Viernes 9</button>
+    </div>
+
+    <!-- Día 1 -->
+    <div class="day-panel active" id="dia1" role="tabpanel" aria-labelledby="tab1">
+      <p class="soon-note">El programa detallado de esta jornada se publicará próximamente.</p>
+    </div>
+
+    <!-- Día 2 -->
+    <div class="day-panel" id="dia2" role="tabpanel" aria-labelledby="tab2" hidden>
+      <p class="soon-note">El programa detallado de esta jornada se publicará próximamente.</p>
+    </div>
+
+    <!-- Día 3 -->
+    <div class="day-panel" id="dia3" role="tabpanel" aria-labelledby="tab3" hidden>
+      <p class="soon-note">El programa detallado de esta jornada se publicará próximamente.</p>
+    </div>
+
+    <!-- Día 4 -->
+    <div class="day-panel" id="dia4" role="tabpanel" aria-labelledby="tab4" hidden>
+      <p class="soon-note">El programa detallado de esta jornada se publicará próximamente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  PLENARIAS  ===================== -->
+<section class="speakers" id="plenarias">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Conferenciantes plenarios</p>
+      <h2>Ponencias invitadas</h2>
+      <p>Personas expertas de reconocido prestigio nacional e internacional abrirán las jornadas con ponencias invitadas. Confirmaremos los nombres próximamente.</p>
+    </div>
+
+    <div class="speaker-grid">
+      <!-- EDITAR: repite este bloque por cada plenaria. Para la foto, sustituye el div .photo por <img src="img/ponente1.jpg" alt="..."> -->
+      <article class="speaker">
+        <div class="photo">Por confirmar</div>
+        <div class="body">
+          <h3>Plenaria por confirmar</h3>
+          <p class="role">Institución</p>
+          <p class="bio">Aquí irá una breve reseña con las líneas de investigación de la persona ponente.</p>
+        </div>
+      </article>
+
+      <article class="speaker">
+        <div class="photo">Por confirmar</div>
+        <div class="body">
+          <h3>Plenaria por confirmar</h3>
+          <p class="role">Institución</p>
+          <p class="bio">Aquí irá una breve reseña con las líneas de investigación de la persona ponente.</p>
+        </div>
+      </article>
+
+      <article class="speaker">
+        <div class="photo">Por confirmar</div>
+        <div class="body">
+          <h3>Plenaria por confirmar</h3>
+          <p class="role">Institución</p>
+          <p class="bio">Aquí irá una breve reseña con las líneas de investigación de la persona ponente.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  ENVÍO DE TRABAJOS  ===================== -->
+<section class="cfp" id="trabajos">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Envío de trabajos</p>
+      <h2>Presenta tu investigación</h2>
+    </div>
+    <div class="cfp-grid">
+      <div>
+        <!-- EDITAR -->
+        <p>Invitamos a jóvenes investigadoras e investigadores a enviar propuestas de comunicación sobre diseño de experimentos, bioestadística y sus aplicaciones. Las propuestas aceptadas se presentarán de forma oral durante las sesiones de comunicaciones.</p>
+        <p>El formato del resumen, la extensión y la plantilla se publicarán al abrir el período de envío. Las mejores ponencias optarán a los premios del congreso.</p>
+        <p style="margin-top:24px;"><a href="#" class="btn btn--ghost">Plantilla de resumen (próximamente)</a></p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--body); font-weight:700; margin-bottom:14px;">Fechas clave</h3>
+        <ul class="deadlines">
+          <!-- EDITAR: fechas por concretar -->
+          <li><span>Apertura de envíos</span><span class="date">Por concretar</span></li>
+          <li><span>Cierre de envíos</span><span class="date">Por concretar</span></li>
+          <li><span>Notificación de aceptación</span><span class="date">Por concretar</span></li>
+          <li><span>Inscripción de autores</span><span class="date">Por concretar</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  PREMIOS  ===================== -->
+<section class="awards" id="premios">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Premios</p>
+      <h2>Reconocimiento a la mejor ciencia joven</h2>
+      <p>Para promover la investigación de excelencia y la colaboración entre grupos, se concederán premios a las mejores ponencias presentadas por jóvenes investigadores.</p>
+    </div>
+    <div class="award-grid">
+      <!-- EDITAR: bases, dotación y categorías cuando se confirmen -->
+      <article class="award">
+        <div class="medal">1.º</div>
+        <h3>Premio a la mejor ponencia</h3>
+        <p>Reconocimiento a la comunicación más destacada por su calidad científica y su presentación. Bases y dotación por confirmar.</p>
+      </article>
+      <article class="award">
+        <div class="medal">2.º</div>
+        <h3>Segundo premio</h3>
+        <p>Segunda distinción entre las ponencias presentadas por jóvenes investigadores. Bases y dotación por confirmar.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  BECAS  ===================== -->
+<section class="grants" id="becas">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Becas</p>
+      <h2>Ayudas para estudiantes</h2>
+      <p>Está previsto ofrecer becas que faciliten la asistencia de estudiantes al congreso. Los detalles de la convocatoria se publicarán próximamente.</p>
+    </div>
+    <div class="grants-grid">
+      <div>
+        <!-- EDITAR -->
+        <p>Las becas buscan apoyar la participación de estudiantes interesados en el diseño de experimentos y la bioestadística, cubriendo total o parcialmente determinados gastos relacionados con la asistencia.</p>
+        <p>Cuando se abra la convocatoria, aquí encontrarás los requisitos, los conceptos cubiertos, la documentación necesaria y el plazo de solicitud.</p>
+      </div>
+      <div class="grant-box">
+        <h3>Qué esperar de la convocatoria</h3>
+        <ul>
+          <!-- EDITAR: ajustar cuando se concreten las bases -->
+          <li>Requisitos de la persona solicitante</li>
+          <li>Gastos cubiertos (inscripción, viaje, alojamiento…)</li>
+          <li>Documentación a presentar</li>
+          <li>Plazo de solicitud · por concretar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  INSCRIPCIÓN  ===================== -->
+<section class="register" id="inscripcion">
+  <div class="wrap">
+    <div class="section-head" style="margin-left:auto; margin-right:auto; text-align:center;">
+      <p class="eyebrow">Inscripción</p>
+      <h2>Tarifas</h2>
+      <p>Tarifas orientativas, pendientes de confirmar. Las plazas pueden ser limitadas.</p>
+    </div>
+
+    <div class="price-grid">
+      <!-- EDITAR tarifas. El botón enlaza a tu sistema de inscripción (formulario, pasarela de pago o correo). -->
+      <div class="price">
+        <span class="tag">Joven investigador</span>
+        <div class="amount">— €</div>
+        <ul>
+          <li>Acceso a todas las sesiones</li>
+          <li>Presentación de comunicación</li>
+          <li>Certificado de asistencia</li>
+        </ul>
+        <a href="#" class="btn btn--ghost">Inscribirme</a>
+      </div>
+
+      <div class="price feat">
+        <span class="tag">General</span>
+        <div class="amount">— €</div>
+        <ul>
+          <li>Acceso a todas las sesiones</li>
+          <li>Documentación del congreso</li>
+          <li>Pausas-café</li>
+          <li>Cena del congreso</li>
+        </ul>
+        <a href="#" class="btn">Inscribirme</a>
+      </div>
+
+      <div class="price">
+        <span class="tag">Estudiante</span>
+        <div class="amount">— €</div>
+        <ul>
+          <li>Acceso a todas las sesiones</li>
+          <li>Certificado de asistencia</li>
+          <li>Posibilidad de solicitar beca</li>
+        </ul>
+        <a href="#" class="btn btn--ghost">Inscribirme</a>
+      </div>
+    </div>
+    <p class="reg-note">¿Dudas con la inscripción? Escríbenos a <a href="mailto:organizacion.jede@gmail.com">organizacion.jede@gmail.com</a></p>
+  </div>
+</section>
+
+<!-- =====================  COMITÉS  ===================== -->
+<section class="committee" id="comites">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Quiénes somos</p>
+      <h2>Comités</h2>
+    </div>
+    <div class="comm-grid">
+      <div>
+        <h3>Comité organizador</h3>
+        <ul>
+          <!-- EDITAR -->
+          <li><strong>Nombre Apellido</strong> — Institución (presidencia)</li>
+          <li><strong>Nombre Apellido</strong> — Institución</li>
+          <li><strong>Nombre Apellido</strong> — Institución</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Comité científico</h3>
+        <ul>
+          <li><strong>Nombre Apellido</strong> — Institución</li>
+          <li><strong>Nombre Apellido</strong> — Institución</li>
+          <li><strong>Nombre Apellido</strong> — Institución</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  LOCALIZACIÓN Y ALOJAMIENTO  ===================== -->
+<section class="venue" id="ubicacion">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Localización y alojamiento</p>
+      <h2>Cómo llegar</h2>
+    </div>
+    <div class="venue-grid">
+      <div class="venue-info">
+        <!-- EDITAR: completar cuando se confirme la sede -->
+        <p class="addr">Sede por confirmar</p>
+        <p>La dirección exacta y las indicaciones para llegar se publicarán en cuanto se confirme la sede.</p>
+        <p><strong>Alojamiento:</strong> incluiremos aquí una selección de hoteles cercanos con tarifas para asistentes, si las hubiera.</p>
+        <p style="margin-top:18px;"><a href="#" class="btn btn--ghost">Hoteles recomendados (próximamente)</a></p>
+      </div>
+      <div class="map-embed">
+        <!-- EDITAR: pega aquí el "insertar mapa" de Google Maps de la sede.
+             En Google Maps: Compartir → Insertar un mapa → copia el iframe. -->
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-7.0%2C43.0%2C-5.0%2C43.6&layer=mapnik"
+          title="Mapa de la sede del congreso"
+          loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================  CONTACTO  ===================== -->
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--warm);">Contacto</p>
+    <h2>¿Tienes alguna pregunta?</h2>
+    <p>Estamos a tu disposición para resolver cualquier duda sobre la inscripción, el programa, el envío de trabajos o las becas.</p>
+    <!-- EDITAR -->
+    <a href="mailto:organizacion.jede@gmail.com" class="mail">organizacion.jede@gmail.com</a>
+  </div>
+</section>
+
+<!-- =====================  PIE  ===================== -->
+<footer>
+  <div class="wrap foot">
+    <a href="#inicio" aria-label="JEDE VIII — Volver arriba">
+      <img src="img/JEDE-VIII_logo-horizontal_negativo.svg" alt="JEDE VIII" class="foot-logo">
+    </a>
+    <!-- EDITAR -->
+    <span>© 2027 JEDE VIII · Congreso de Jóvenes Investigadores en Diseño de Experimentos y Bioestadística</span>
+    <a href="#inicio">Volver arriba ↑</a>
+  </div>
+</footer>
+
+<script>
+/* Menú móvil */
+const toggle = document.querySelector('.nav-toggle');
+const links  = document.querySelector('.nav-links');
+toggle.addEventListener('click', () => {
+  const open = links.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+links.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+  })
+);
+
+/* Pestañas del programa */
+const tabs   = document.querySelectorAll('.day-tab');
+const panels = document.querySelectorAll('.day-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+    panels.forEach(p => { p.classList.remove('active'); p.hidden = true; });
+    tab.setAttribute('aria-selected', 'true');
+    const panel = document.getElementById(tab.getAttribute('aria-controls'));
+    panel.classList.add('active');
+    panel.hidden = false;
+  });
+});
+</script>
+
+</body>
+</html>
